@@ -1,3 +1,17 @@
+import { Link } from 'react-router-dom'
+import styles from './TeamSelection.module.scss'
+import { $game } from '../../store/store';
+import { useUnit } from 'effector-react';
+
 export const TeamSelection = () => {
-    return <div>TeamSelection</div>
+    const game = useUnit($game);
+    const teams = game?.teams ?? [];
+    return <div className={styles.container}>
+        <h1>Команды</h1>
+        <div className={styles.teams}>
+        {teams.map((team) => <div key={team.id}>{team.name}</div>)}
+        </div>
+        <Link to={'/match_settings'}><button className={styles.btn}>Далее</button></Link>
+        <Link to={'/'}><button className={styles.btn}>Назад</button></Link>
+    </div>
 }
