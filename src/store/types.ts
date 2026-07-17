@@ -15,4 +15,5 @@ export type Game = {
     teams: Team[];
     currentTeamId: number;
     currentLetter: string;
+    isOn: boolean;
 }

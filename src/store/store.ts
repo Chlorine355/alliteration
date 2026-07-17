@@ -9,3 +9,7 @@ const initStore = () => {
 }
 
 export const $game = createStore<Game | null>(initStore());
+
+
+// save as we play
+$game.watch((data) => localStorage.setItem('game', JSON.stringify(data)))
