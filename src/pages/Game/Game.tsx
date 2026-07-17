@@ -10,6 +10,39 @@ Game flow
 5) -> 1
 */
 
+import { useEffect, useState } from "react"
+import { setGameOnEv, setRandomLetterEv } from "../../store/actions"
+import { $game } from "../../store/store"
+import { useUnit } from "effector-react";
+
+enum Stages {
+    StatsBefore,
+    StartButton,
+    Game,
+    RoundStats,
+}
+
 export const Game = () => {
-    return <div>Game</div>
+    const [stage, setStage] = useState(Stages.StatsBefore);
+    const game = useUnit($game);
+    useEffect(() => {
+        setGameOnEv(true)
+    }, [])
+
+    useEffect(() => {
+        if (game.currentTeamId === 0) {
+            setRandomLetterEv()
+        }
+    }, [game.currentTeamId])
+
+    switch (stage) {
+        case Stages.StatsBefore:
+            return <div></div>
+        case Stages.StartButton:
+            return <div></div>
+        case Stages.Game:
+            return <div></div>
+        case Stages.RoundStats:
+            return <div></div>
+    }
 }

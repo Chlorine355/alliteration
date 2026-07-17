@@ -1,5 +1,5 @@
 export type Team = {
-    id: number;
+    id: number; // equal to idx in teams
     name: string;
     score: number;
 }
