@@ -40,4 +40,9 @@ export default defineConfig({
       // Опционально: конфигурация Workbox для кастомного кэширования
     }),
   ],
+  css: {
+    modules: {
+      generateScopedName: '[folder]_[local]__[hash:base64:5]',
+    },
+  },
 });
