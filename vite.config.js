@@ -13,7 +13,7 @@ export default defineConfig({
       manifest: {
         name: 'Alliteration',
         short_name: 'Alliteration',
-        description: 'PWA дял игры в объясненеи слов используя только слова на одну букву',
+        description: 'PWA для игры в объяснение слов используя только слова на одну букву',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         display: 'standalone',
