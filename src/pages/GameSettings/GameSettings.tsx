@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 import styles from './GameSettings.module.scss'
 import { useUnit } from "effector-react";
 import { $game } from "../../store/store";
-import { setSkipPenaltyEv, setTargetScoreEv, setTimeForRoundEv } from "../../store/actions";
+import { setSkipPenaltyEv, setTargetScoreEv, setTeamsToZero, setTimeForRoundEv } from "../../store/actions";
+import { useEffect } from "react";
 
 
 export const GameSettings = () => {
     const game = useUnit($game);
     const settings = game.settings;
+    // reset team scores if exited from game
+    useEffect(() => { setTeamsToZero() }, [])
     return <div className={styles.container}>
         <h1>Настройки игры</h1>
         <div className={styles.controls}>
