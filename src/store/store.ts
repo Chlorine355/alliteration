@@ -1,6 +1,6 @@
 import { createStore } from "effector";
 import { Game } from "./types";
-import { addToTeamScoreEv, setCurrentTeamEv, setDefaultGameEv, setGameOnEv, setRandomLetterEv } from "./actions";
+import { addToTeamScoreEv, setCurrentTeamEv, setDefaultGameEv, setGameOnEv, setRandomLetterEv, setSkipPenaltyEv, setTargetScoreEv, setTimeForRoundEv } from "./actions";
 import { getRandomLetter } from "../data/helpers";
 
 
@@ -33,10 +33,12 @@ export const $game = createStore<Game>(initStore())
     teamsCopy[payload.teamIdx].score = teamsCopy[payload.teamIdx].score + payload.score;
     return {...state, teams: teamsCopy}
 })
+.on(setSkipPenaltyEv, (state, payload) => ({...state, settings: {...state.settings, penaltyForSkip: payload}}))
+.on(setTimeForRoundEv, (state, payload) => ({...state, settings: {...state.settings, time: payload}}))
+.on(setTargetScoreEv, (state, payload) => ({...state, settings: {...state.settings, targetScore: payload}}))
+
 .on(setDefaultGameEv, () => getDefaultGame());
 
 
 // save as we play
 $game.watch((data) => localStorage.setItem('game', JSON.stringify(data)))
-
-$game.watch(console.log)

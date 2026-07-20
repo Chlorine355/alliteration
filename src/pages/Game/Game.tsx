@@ -30,6 +30,7 @@ export const Game = () => {
     const [stage, setStage] = useState(Stages.StatsBefore);
     const [history, setHistory] = useState<{ word: string; result: boolean }[]>([]);
     const game = useUnit($game);
+    const isPenaltyForSkip = game.settings.penaltyForSkip;
     useEffect(() => {
         setGameOnEv(true)
     }, [])
@@ -48,7 +49,7 @@ export const Game = () => {
     const nextTeamHandler = () => {
         let score = 0;
         for (const record of history) {
-            score += record.result ? 1 : -1;
+            score += record.result ? 1 : isPenaltyForSkip ? -1 : 0;
         }
         addToTeamScoreEv({ teamIdx: game.currentTeamId, score })
         setCurrentTeamEv((game.currentTeamId + 1) % game.teams.length)
@@ -103,6 +104,6 @@ export const Game = () => {
                 {game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) => <div key={team.id}>
                     {team.name} {team.score}
                 </div>)}
-            <button onClick={exitHandler}>Домой</button></div>
+            <button onClick={exitHandler}>В меню</button></div>
     }
 }
