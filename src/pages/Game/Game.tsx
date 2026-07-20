@@ -11,19 +11,24 @@ Game flow
 */
 
 import { useEffect, useState } from "react"
-import { setGameOnEv, setRandomLetterEv } from "../../store/actions"
+import { addToTeamScoreEv, setCurrentTeamEv, setDefaultGameEv, setGameOnEv, setRandomLetterEv } from "../../store/actions"
 import { $game } from "../../store/store"
 import { useUnit } from "effector-react";
+import styles from './Game.module.scss';
+import { MainGame } from "./components/MainGame";
+import { useNavigate } from "react-router-dom";
 
 enum Stages {
     StatsBefore,
-    StartButton,
     Game,
     RoundStats,
+    Victory,
 }
 
 export const Game = () => {
+    const navigate = useNavigate()
     const [stage, setStage] = useState(Stages.StatsBefore);
+    const [history, setHistory] = useState<{ word: string; result: boolean }[]>([]);
     const game = useUnit($game);
     useEffect(() => {
         setGameOnEv(true)
@@ -35,14 +40,69 @@ export const Game = () => {
         }
     }, [game.currentTeamId])
 
+    const roundEndHandler = (history: { word: string; result: boolean }[]) => {
+        setHistory(history)
+        setStage(Stages.RoundStats)
+    }
+
+    const nextTeamHandler = () => {
+        let score = 0;
+        for (const record of history) {
+            score += record.result ? 1 : -1;
+        }
+        addToTeamScoreEv({ teamIdx: game.currentTeamId, score })
+        setCurrentTeamEv((game.currentTeamId + 1) % game.teams.length)
+        // if last team, check wins
+        if (game.currentTeamId === game.teams.length - 1) {
+            console.log('checking')
+            for (const team of game.teams) {
+                if (team.score >= game.settings.targetScore) {
+                    setStage(Stages.Victory)
+                    return;
+                }
+            }
+            if (game.teams[game.currentTeamId].score + score >= game.settings.targetScore) {
+                setStage(Stages.Victory)
+                return;
+            }
+        }
+        setStage(Stages.StatsBefore)
+        setHistory([])
+    }
+
+    const exitHandler = () => {
+        setDefaultGameEv();
+        navigate('/')
+    }
+
     switch (stage) {
         case Stages.StatsBefore:
-            return <div></div>
-        case Stages.StartButton:
-            return <div></div>
+            return <div className={styles.container}>
+                {game.teams.map((team) => <div key={team.id}>
+                    {team.name} {team.score}
+                </div>)}
+                <div>
+                    Следующая команда: {game.teams[game.currentTeamId].name}
+                </div>
+                <button className={styles.btn} onClick={() => setStage(Stages.Game)}>
+                    Газ
+                </button>
+            </div>
         case Stages.Game:
-            return <div></div>
+            return <MainGame roundEndHandler={roundEndHandler} letter={game.currentLetter} />
         case Stages.RoundStats:
-            return <div></div>
+            return (
+                <div>
+                    {history.map((record) => <div key={record.word}>{record.word} {record.result ? '+' : '-'}</div>)}
+                    <button onClick={nextTeamHandler}>Передать ход</button>
+                </div>
+            )
+        case Stages.Victory:
+            return <div className={styles.container}>
+                <h2>Победа!</h2>
+                {game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) => <div key={team.id}>
+                    {team.name} {team.score}
+                </div>)}
+            <button onClick={exitHandler}>Домой</button></div>
     }
 }
