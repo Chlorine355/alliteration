@@ -1,12 +1,15 @@
 import { WORDS } from "./words";
 
-export const getRandomLetter = () =>{
-    // TODO
-    return 'п'
+const getRandomFromListOrString = (a: string[] | string) => {
+    return a[Math.floor(Math.random() * a.length)]
+}
+
+export const getRandomLetter = () => {
+    return getRandomFromListOrString('пстокнвра')
 }
 
 export const getRandomWord = () => {
-    return WORDS[Math.floor(Math.random()*WORDS.length)];
+    return getRandomFromListOrString(WORDS);
 }
 
 export const formatTime = (seconds: number) => {
