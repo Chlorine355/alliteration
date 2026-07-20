@@ -17,6 +17,7 @@ import { useUnit } from "effector-react";
 import styles from './Game.module.scss';
 import { MainGame } from "./components/MainGame";
 import { useNavigate } from "react-router-dom";
+import clsx from "clsx";
 
 enum Stages {
     StatsBefore,
@@ -78,13 +79,17 @@ export const Game = () => {
 
     switch (stage) {
         case Stages.StatsBefore:
-            return <div className={styles.container}>
-                {game.teams.map((team) => <div key={team.id}>
-                    {team.name} {team.score}
-                </div>)}
+            return <div className={clsx(styles.game_container, styles.padding_bottom)}>
+                <div className={styles.top}>
+                    {game.teams.map((team) => <div key={team.id}>
+                        {team.name} {team.score}
+                    </div>)}
+                </div>
+
                 <div>
                     Следующая команда: {game.teams[game.currentTeamId].name}
                 </div>
+
                 <button className={styles.btn} onClick={() => setStage(Stages.Game)}>
                     Газ
                 </button>
@@ -104,6 +109,6 @@ export const Game = () => {
                 {game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) => <div key={team.id}>
                     {team.name} {team.score}
                 </div>)}
-            <button onClick={exitHandler}>В меню</button></div>
+                <button onClick={exitHandler}>В меню</button></div>
     }
 }
