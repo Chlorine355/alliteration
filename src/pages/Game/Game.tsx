@@ -63,7 +63,8 @@ export const Game = () => {
                     return;
                 }
             }
-            if (game.teams[game.currentTeamIdx].score + score >= game.settings.targetScore) {
+            console.log(game.teams[game.currentTeamIdx].score)
+            if (game.teams[game.currentTeamIdx].score >= game.settings.targetScore) {
                 setStage(Stages.Victory)
                 return;
             }
@@ -81,14 +82,14 @@ export const Game = () => {
         case Stages.StatsBefore:
             return <div className={clsx(styles.game_container, styles.padding_bottom)}>
                 <div className={styles.top}>
-                    {game.teams.map((team) => <div key={team.name}>
+                    {game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) => <div key={team.name}>
                         {team.name} {team.score}
                     </div>)}
                 </div>
 
                 <div className={styles.centered_column}>
                     Следующая команда: {game.teams[game.currentTeamIdx].name}
-                    <div>Буква: {game.currentLetter.toUpperCase()}</div>
+                    <div>Буква: <b>{game.currentLetter.toUpperCase()}</b></div>
                 </div>
 
                 <button className={"wide blue"} onClick={() => setStage(Stages.Game)}>
@@ -100,7 +101,7 @@ export const Game = () => {
         case Stages.RoundStats:
             return (
                 <div className={clsx(styles.game_container, styles.padding_bottom)}>
-                    <div className={styles.top}>Результат {game.teams[game.currentTeamIdx].name}: {}</div>
+                    <div className={styles.top}>Результат {game.teams[game.currentTeamIdx].name}: { }</div>
                     <div className={clsx(styles.centered_column, styles.results)}>
                         {history.map((record) => <div key={record.word}>{record.word} {record.result ? '+' : '-'}</div>)}
                     </div>
@@ -110,9 +111,15 @@ export const Game = () => {
         case Stages.Victory:
             return <div className={styles.container}>
                 <h2>Победа!</h2>
-                {game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) => <div key={team.name}>
-                    {team.name} {team.score}
-                </div>)}
+                <div className={clsx(styles.centered_column, styles.final_results)}>
+                {
+                    game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) => 
+                    <div key={team.name}>
+                        {team.name} {team.score}
+                    </div>
+                    )
+                }
+                </div>
                 <button onClick={exitHandler} className={'wide blue'}>В меню</button></div>
     }
 }

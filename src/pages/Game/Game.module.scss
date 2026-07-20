@@ -76,3 +76,10 @@
     font-size: larger;
     font-weight: 700;
 }
+
+.final_results {
+    &>div:first-child {
+        font-size: larger;
+        font-weight: 700;
+    }
+}
