@@ -1,8 +1,9 @@
-import { useStoreMap, useUnit } from "effector-react";
+import { useUnit } from "effector-react";
 import { useEffect, useRef, useState } from "react";
 import { $game } from "../../../store/store";
 import styles from './../Game.module.scss'
 import { formatTime, getRandomWord } from "../../../data/helpers";
+import { WordCircle } from "./WordCircle";
 
 type PropsType = {
     letter: string;
@@ -46,22 +47,18 @@ export const MainGame = ({ letter, roundEndHandler }: PropsType) => {
         <div className={styles.game_container}>
             <div className={styles.top}>
                 <div>{teamName}</div>
-                <div>{guessed}</div>
+                <div>Буква: {letter.toUpperCase()}</div>
+                <div  className={styles.score}>{guessed}</div>
                 <div>Отгадано</div>
             </div>
 
-            {!isPaused ? <div className={styles.centered_column}>
-                <button onClick={() => wordPlayedHandler(true)}>Угадано</button>
-                <div className={styles.centered_column}>
-                    {word}
-                    <div>Буква: <b>{letter.toUpperCase()}</b></div>
-                </div>
-                <button onClick={() => wordPlayedHandler(false)}>Пропустить</button>
-            </div> : 'Пауза'}
+            {!isPaused ?
+                <WordCircle word={word} wordPlayedHandler={wordPlayedHandler} key={word} />
+                : 'Пауза'}
 
             <div className={styles.bottom}>
                 <div>Пропущено</div>
-                <div>{skipped}</div>
+                <div className={styles.score}>{skipped}</div>
                 <div className={styles.time}>
                     <div>{isPaused ? 'Пауза' : timer > 0 ? formatTime(timer) : 'Последнее слово'}</div>
                     <button onClick={() => setIsPaused(!isPaused)}>{isPaused ? 'Продолжить' : 'Пауза'}</button>
