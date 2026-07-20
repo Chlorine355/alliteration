@@ -1,5 +1,4 @@
 export type Team = {
-    id: number; // equal to idx in teams
     name: string;
     score: number;
 }
@@ -13,7 +12,7 @@ export type GameSettings = {
 export type Game = {
     settings: GameSettings;
     teams: Team[];
-    currentTeamId: number;
+    currentTeamIdx: number;
     currentLetter: string;
     isOn: boolean;
 }

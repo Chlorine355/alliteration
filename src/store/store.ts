@@ -6,12 +6,12 @@ import { getRandomLetter } from "../data/helpers";
 
 const getDefaultGame = () => {
     return {
-    teams: [{id: 0, score: 0, name: 'Кошки'}, {id: 1, score: 0, name: 'Мышки'}],
-    currentTeamId: 0,
+    teams: [{score: 0, name: 'Кошки'}, {score: 0, name: 'Мышки'}],
+    currentTeamIdx: 0,
     currentLetter: 'п',
     isOn: false,
     settings: {targetScore: 30,
-    time: 5,
+    time: 90,
     penaltyForSkip: true,
     }
 }
@@ -26,7 +26,7 @@ const initStore = (): Game => {
 export const $game = createStore<Game>(initStore())
 .on(setGameOnEv, (state, payload) => ({...state, isOn: payload}))
 
-.on(setCurrentTeamEv, (state, payload) => ({...state, currentTeamId: payload}))
+.on(setCurrentTeamEv, (state, payload) => ({...state, currentTeamIdx: payload}))
 .on(setRandomLetterEv, (state, _) => ({...state, currentLetter: getRandomLetter()}))
 .on(addToTeamScoreEv, (state, payload) => {
     const teamsCopy = state.teams.slice()

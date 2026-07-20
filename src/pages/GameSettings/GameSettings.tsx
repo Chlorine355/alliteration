@@ -24,7 +24,7 @@ export const GameSettings = () => {
                 <span>Штраф за пропуск:</span>
                 <input type="checkbox" checked={settings.penaltyForSkip} onChange={(event) => setSkipPenaltyEv(event.target.checked)} /></div>
         </div>
-        <Link to={'/game'}><button className={styles.btn}>Играть</button></Link>
-        <Link to={'/'}><button className={styles.btn}>Назад</button></Link>
+        <Link to={'/game'}><button className={'wide blue'}>Играть</button></Link>
+        <Link to={'/'}><button className={'wide'}>Назад</button></Link>
     </div>
 }

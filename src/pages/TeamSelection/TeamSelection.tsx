@@ -9,9 +9,9 @@ export const TeamSelection = () => {
     return <div className={styles.container}>
         <h1>Команды</h1>
         <div className={styles.teams}>
-        {teams.map((team) => <div key={team.id}>{team.name}</div>)}
+        {teams.map((team) => <div key={team.name}>{team.name}</div>)}
         </div>
-        <Link to={'/match_settings'}><button className={styles.btn}>Далее</button></Link>
-        <Link to={'/'}><button className={styles.btn}>Назад</button></Link>
+        <Link to={'/match_settings'}><button className={'wide blue'}>Далее</button></Link>
+        <Link to={'/'}><button className={'wide'}>Назад</button></Link>
     </div>
 }

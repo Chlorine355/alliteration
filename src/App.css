@@ -8,3 +8,17 @@
     overflow: hidden;
     box-sizing: border-box;
 }
+
+button {
+    background-color: var(--orange);
+    border-width: 0;
+    padding: 16px;
+    border-radius: 50px;
+    &.blue {
+        background-color: var(--blue);
+    }
+
+    &.wide {
+        width: 200px;
+    }
+}

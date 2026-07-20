@@ -13,7 +13,7 @@ type PropsType = {
 export const MainGame = ({ letter, roundEndHandler }: PropsType) => {
     const game = useUnit($game);
     const time = game.settings.time;
-    const teamName = game.teams[game.currentTeamId].name;
+    const teamName = game.teams[game.currentTeamIdx].name;
     const [isPaused, setIsPaused] = useState(false);
     const [timer, setTimer] = useState<number>(time);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
