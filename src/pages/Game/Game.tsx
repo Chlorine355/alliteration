@@ -86,8 +86,9 @@ export const Game = () => {
                     </div>)}
                 </div>
 
-                <div>
+                <div className={styles.centered_column}>
                     Следующая команда: {game.teams[game.currentTeamId].name}
+                    <div>Буква: {game.currentLetter.toUpperCase()}</div>
                 </div>
 
                 <button className={styles.btn} onClick={() => setStage(Stages.Game)}>
@@ -98,8 +99,11 @@ export const Game = () => {
             return <MainGame roundEndHandler={roundEndHandler} letter={game.currentLetter} />
         case Stages.RoundStats:
             return (
-                <div>
-                    {history.map((record) => <div key={record.word}>{record.word} {record.result ? '+' : '-'}</div>)}
+                <div className={clsx(styles.game_container, styles.padding_bottom)}>
+                    <div className={styles.top}>Результат {game.teams[game.currentTeamId].name}: {}</div>
+                    <div className={clsx(styles.centered_column, styles.results)}>
+                        {history.map((record) => <div key={record.word}>{record.word} {record.result ? '+' : '-'}</div>)}
+                    </div>
                     <button onClick={nextTeamHandler}>Передать ход</button>
                 </div>
             )

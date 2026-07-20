@@ -48,18 +48,24 @@ export const MainGame = ({ letter, roundEndHandler }: PropsType) => {
                 <div>{teamName}</div>
                 <div>{guessed}</div>
                 <div>Отгадано</div>
-                <div>Буква: {letter.toUpperCase()}</div>
             </div>
 
-            <button onClick={() => wordPlayedHandler(true)}>Угадано</button>
-            <div>{word}</div>
-            <button onClick={() => wordPlayedHandler(false)}>Пропустить</button>
+            {!isPaused ? <div className={styles.centered_column}>
+                <button onClick={() => wordPlayedHandler(true)}>Угадано</button>
+                <div className={styles.centered_column}>
+                    {word}
+                    <div>Буква: <b>{letter.toUpperCase()}</b></div>
+                </div>
+                <button onClick={() => wordPlayedHandler(false)}>Пропустить</button>
+            </div> : 'Пауза'}
 
             <div className={styles.bottom}>
-                <div>{skipped}</div>
                 <div>Пропущено</div>
-                <div>{timer > 0 ? formatTime(timer) : 'Последнее слово'}</div>
-                <button onClick={() => setIsPaused(!isPaused)}>{isPaused ? 'Продолжить' : 'Пауза'}</button>
+                <div>{skipped}</div>
+                <div className={styles.time}>
+                    <div>{isPaused ? 'Пауза' : timer > 0 ? formatTime(timer) : 'Последнее слово'}</div>
+                    <button onClick={() => setIsPaused(!isPaused)}>{isPaused ? 'Продолжить' : 'Пауза'}</button>
+                </div>
             </div>
         </div>)
 }

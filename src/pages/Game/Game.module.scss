@@ -17,12 +17,6 @@
     width: 100%;
 }
 
-.controls {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
 .btn {
     width: 200px;
     padding: 12px;
@@ -52,4 +46,22 @@
     background-color: lightgray;
     border-top-right-radius: 50%;
     border-top-left-radius: 50%;
+}
+
+.time {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.centered_column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.results {
+    max-height: 50svh;
+    overflow: scroll;
 }
