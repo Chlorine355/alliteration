@@ -13,7 +13,7 @@ const getDefaultGame = () => {
         settings: {
             targetScore: 30,
             time: 90,
-            penaltyForSkip: true,
+            penaltyForSkip: false,
             fixedLetter: '',
         }
     }
