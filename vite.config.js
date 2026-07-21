@@ -6,6 +6,7 @@ export default defineConfig({
   define: {
     "process.env.DRAGGABLE_DEBUG": "false",
   },
+  base: "/colordle",
   plugins: [
     react(),
     VitePWA({
