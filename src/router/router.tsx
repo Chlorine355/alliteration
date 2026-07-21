@@ -35,6 +35,8 @@ const router = createBrowserRouter([
       },
     ],
   },
-]);
+], {
+  basename: '/alliteration'
+});
 
 export default router;
