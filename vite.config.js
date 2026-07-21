@@ -4,12 +4,13 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   define: {
-  "process.env.DRAGGABLE_DEBUG": "false",
-},
+    "process.env.DRAGGABLE_DEBUG": "false",
+  },
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate', // или 'prompt'
+      includeAssets: ['src/assets/a.png'],
       manifest: {
         name: 'Alliteration',
         short_name: 'Alliteration',
@@ -21,22 +22,29 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: 'src/assets/hero.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: 'pwa-512x512.png',
+            src: 'a512.png',
             sizes: '512x512',
             type: 'image/png',
           },
         ],
         screenshots: [
           {
-            src: '/screenshots/screenshot1.png',
-            sizes: '1280x720',
+            src: 'screenshot1.jpg',
+            sizes: '591x1280',
+            type: 'image/jpg',
+            form_factor: 'narrow'
+          },
+          {
+            src: 'screenshot2.jpg',
+            sizes: '591x1280',
+            type: 'image/jpg',
+            form_factor: 'narrow'
+          },
+          {
+            src: 'screenshot3.png',
+            sizes: '1980x975',
             type: 'image/png',
-            form_factor: 'wide',
+            form_factor: 'wide'
           },
         ],
       },
