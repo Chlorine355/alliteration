@@ -5,7 +5,7 @@ const getRandomFromListOrString = (a: string[] | string) => {
 }
 
 export const getRandomLetter = () => {
-    return getRandomFromListOrString('пстокнвра')
+    return getRandomFromListOrString('пстокнвр')
 }
 
 export const getRandomWord = () => {
