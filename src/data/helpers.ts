@@ -1,4 +1,4 @@
-import { WORDS } from "./words";
+import { COMMON_WORDS } from "./commonWords";
 
 const getRandomFromListOrString = (a: string[] | string) => {
     return a[Math.floor(Math.random() * a.length)]
@@ -9,7 +9,7 @@ export const getRandomLetter = () => {
 }
 
 export const getRandomWord = () => {
-    return getRandomFromListOrString(WORDS);
+    return getRandomFromListOrString(COMMON_WORDS);
 }
 
 export const formatTime = (seconds: number) => {
