@@ -10,3 +10,7 @@ export const setSkipPenaltyEv = createEvent<boolean>();
 export const setTargetScoreEv = createEvent<number>();
 export const setTimeForRoundEv = createEvent<number>();
 export const setTeamsToZero = createEvent();
+export const setTeamNameEv = createEvent<{idx: number, name: string}>()
+
+export const addTeamEv = createEvent();
+export const deleteTeamEv = createEvent<number>();

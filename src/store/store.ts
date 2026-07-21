@@ -1,6 +1,6 @@
 import { createStore } from "effector";
 import { Game } from "./types";
-import { addToTeamScoreEv, setCurrentTeamEv, setDefaultGameEv, setGameOnEv, setRandomLetterEv, setSkipPenaltyEv, setTargetScoreEv, setTeamsToZero, setTimeForRoundEv } from "./actions";
+import { addTeamEv, addToTeamScoreEv, deleteTeamEv, setCurrentTeamEv, setDefaultGameEv, setGameOnEv, setRandomLetterEv, setSkipPenaltyEv, setTargetScoreEv, setTeamNameEv, setTeamsToZero, setTimeForRoundEv } from "./actions";
 import { getRandomLetter } from "../data/helpers";
 
 
@@ -37,6 +37,18 @@ export const $game = createStore<Game>(initStore())
 .on(setTimeForRoundEv, (state, payload) => ({...state, settings: {...state.settings, time: payload}}))
 .on(setTargetScoreEv, (state, payload) => ({...state, settings: {...state.settings, targetScore: payload}}))
 .on(setTeamsToZero, (state) => ({...state, teams: state.teams.map((team) => ({...team, score: 0}))}))
+.on(setTeamNameEv, (state, {idx, name}) => {
+    return {...state, teams: state.teams.map((team, teamIdx) => {
+        if (idx === teamIdx) {
+            return {score: team.score, name}
+        } else {
+            return team
+        }
+    })}
+})
+.on(addTeamEv, (state) => ({...state, teams: [...state.teams, {name: '', score: 0}]}))
+.on(deleteTeamEv, (state, payload) => ({...state, teams: state.teams.toSpliced(payload, 1)}))
+
 
 .on(setDefaultGameEv, () => getDefaultGame());
 
