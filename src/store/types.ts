@@ -7,6 +7,7 @@ export type GameSettings = {
     targetScore: number;
     time: number;
     penaltyForSkip: boolean;
+    fixedLetter: string;
 }
 
 export type Game = {

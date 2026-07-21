@@ -89,7 +89,7 @@ export const Game = () => {
 
                 <div className={styles.centered_column}>
                     Следующая команда: {game.teams[game.currentTeamIdx].name}
-                    <div>Буква: <b>{game.currentLetter.toUpperCase()}</b></div>
+                    <div>Буква: <b>{(game.settings.fixedLetter || game.currentLetter).toUpperCase()}</b></div>
                 </div>
 
                 <button className={"wide blue"} onClick={() => setStage(Stages.Game)}>
@@ -97,7 +97,7 @@ export const Game = () => {
                 </button>
             </div>
         case Stages.Game:
-            return <MainGame roundEndHandler={roundEndHandler} letter={game.currentLetter} />
+            return <MainGame roundEndHandler={roundEndHandler} letter={game.settings.fixedLetter || game.currentLetter} />
         case Stages.RoundStats:
             return (
                 <div className={clsx(styles.game_container, styles.padding_bottom)}>
@@ -112,13 +112,13 @@ export const Game = () => {
             return <div className={styles.container}>
                 <h2>Победа!</h2>
                 <div className={clsx(styles.centered_column, styles.final_results)}>
-                {
-                    game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) => 
-                    <div key={team.name}>
-                        {team.name} {team.score}
-                    </div>
-                    )
-                }
+                    {
+                        game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) =>
+                            <div key={team.name}>
+                                {team.name} {team.score}
+                            </div>
+                        )
+                    }
                 </div>
                 <button onClick={exitHandler} className={'wide blue'}>В меню</button></div>
     }

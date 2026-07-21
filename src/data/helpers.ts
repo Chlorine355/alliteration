@@ -1,3 +1,4 @@
+import { LETTERS } from "./letters";
 import { WORDS } from "./words";
 
 const getRandomFromListOrString = (a: string[] | string) => {
@@ -5,7 +6,7 @@ const getRandomFromListOrString = (a: string[] | string) => {
 }
 
 export const getRandomLetter = () => {
-    return getRandomFromListOrString('пстокнвр')
+    return getRandomFromListOrString(LETTERS)
 }
 
 export const getRandomWord = () => {
