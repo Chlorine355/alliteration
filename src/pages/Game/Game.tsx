@@ -36,6 +36,10 @@ export const Game = () => {
         setGameOnEv(true)
     }, [])
 
+    const flipHistoryRecord = (index: number) => {
+        setHistory((history) => history.map((record, idx) => ({...record, result: idx === index ? !record.result : record.result})))
+    }
+
     useEffect(() => {
         if (game.currentTeamIdx === 0) {
             setRandomLetterEv()
@@ -47,12 +51,16 @@ export const Game = () => {
         setStage(Stages.RoundStats)
     }
 
-    const nextTeamHandler = () => {
+    const computeScore = (records: { word: string; result: boolean }[]) => {
         let score = 0;
-        for (const record of history) {
+        for (const record of records) {
             score += record.result ? 1 : isPenaltyForSkip ? -1 : 0;
         }
-        addToTeamScoreEv({ teamIdx: game.currentTeamIdx, score })
+        return score;
+    }
+
+    const nextTeamHandler = () => {     
+        addToTeamScoreEv({ teamIdx: game.currentTeamIdx, score: computeScore(history) })
         setCurrentTeamEv((game.currentTeamIdx + 1) % game.teams.length)
         // if last team, check wins
         if (game.currentTeamIdx === game.teams.length - 1) {
@@ -107,9 +115,13 @@ export const Game = () => {
         case Stages.RoundStats:
             return (
                 <div className={clsx(styles.game_container, styles.padding_bottom)}>
-                    <div className={styles.top}>Результат {game.teams[game.currentTeamIdx].name}: { }</div>
+                    <div className={styles.top}>Результат {game.teams[game.currentTeamIdx].name}: {computeScore(history)}</div>
                     <div className={clsx(styles.centered_column, styles.results)}>
-                        {history.map((record) => <div key={record.word}>{record.word} {record.result ? '+' : '-'}</div>)}
+                        {history.map((record, idx) => 
+                        <div key={record.word} className={styles.result}>
+                            <span>{record.word}</span>
+                            <span onClick={() => flipHistoryRecord(idx)}>{record.result ? '👍' : '👎'}</span>
+                        </div>)}
                     </div>
                     <button onClick={nextTeamHandler} className={'wide blue'}>Передать ход</button>
                 </div>
@@ -120,8 +132,9 @@ export const Game = () => {
                 <div className={clsx(styles.centered_column, styles.final_results)}>
                     {
                         game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) =>
-                            <div key={team.name}>
-                                {team.name} {team.score}
+                            <div key={team.name} className={styles.team}>
+                                <span>{team.name}</span>
+                                <span>{team.score}</span>
                             </div>
                         )
                     }

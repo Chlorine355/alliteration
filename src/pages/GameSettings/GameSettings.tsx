@@ -39,6 +39,6 @@ export const GameSettings = () => {
 
         </div>
         <Link to={'/game'}><button className={'wide blue'}>Играть</button></Link>
-        <Link to={'/'}><button className={'wide'}>Назад</button></Link>
+        <Link to={'/teams'}><button className={'wide'}>Назад</button></Link>
     </div>
 }

@@ -39,7 +39,7 @@ export const $game = createStore<Game>(initStore())
     .on(setTimeForRoundEv, (state, payload) => ({ ...state, settings: { ...state.settings, time: payload } }))
     .on(setFixedLetterEv, (state, payload) => ({ ...state, settings: { ...state.settings, fixedLetter: payload } }))
     .on(setTargetScoreEv, (state, payload) => ({ ...state, settings: { ...state.settings, targetScore: payload } }))
-    .on(setTeamsToZero, (state) => ({ ...state, teams: state.teams.map((team) => ({ ...team, score: 0 })) }))
+    .on(setTeamsToZero, (state) => ({ ...state, currentTeamIdx: 0, teams: state.teams.map((team) => ({ ...team, score: 0 })) }))
     .on(setTeamNameEv, (state, { idx, name }) => {
         return {
             ...state, teams: state.teams.map((team, teamIdx) => {

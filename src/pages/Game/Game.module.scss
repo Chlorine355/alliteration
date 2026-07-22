@@ -15,6 +15,7 @@
     gap: 20px;
     flex-grow: 1;
     width: 100%;
+    overflow: hidden;
 }
 
 .padding_bottom {
@@ -58,8 +59,16 @@
 }
 
 .results {
-    max-height: 50svh;
+    flex-grow: 1;
     overflow-y: auto;
+    width: 200px;
+}
+
+.result {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 @keyframes appear {
@@ -90,6 +99,8 @@
 }
 
 .final_results {
+    width: 200px;
+
     &>div:first-child {
         font-size: larger;
         font-weight: 700;
