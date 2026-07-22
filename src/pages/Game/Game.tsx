@@ -82,9 +82,15 @@ export const Game = () => {
         case Stages.StatsBefore:
             return <div className={clsx(styles.game_container, styles.padding_bottom)}>
                 <div className={styles.top}>
-                    {game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) => <div key={team.name}>
-                        {team.name} {team.score}
-                    </div>)}
+                    <div className={styles.teams_header}>
+                        <span>Рейтинг команд </span>
+                        <span>👑{game.settings.targetScore}</span>
+                    </div>
+                    <div className={styles.teams}>
+                        {game.teams.toSorted((team1, team2) => team2.score - team1.score).map((team) => <div key={team.name} className={styles.team}>
+                        <span>{team.name}</span> <span>{team.score}</span>
+                        </div>)}
+                    </div>
                 </div>
 
                 <div className={styles.centered_column}>
@@ -93,7 +99,7 @@ export const Game = () => {
                 </div>
 
                 <button className={"wide blue"} onClick={() => setStage(Stages.Game)}>
-                    Газ
+                    Поехали!
                 </button>
             </div>
         case Stages.Game:
