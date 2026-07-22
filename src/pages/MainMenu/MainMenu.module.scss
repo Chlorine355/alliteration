@@ -13,3 +13,16 @@
     align-items: center;
     gap: 12px;
 }
+
+.modal[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-color: var(--orange);
+}
+
+.modal_buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
