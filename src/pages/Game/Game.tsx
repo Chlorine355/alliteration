@@ -60,19 +60,15 @@ export const Game = () => {
     }
 
     const nextTeamHandler = () => {     
-        addToTeamScoreEv({ teamIdx: game.currentTeamIdx, score: computeScore(history) })
+        const currentScore = computeScore(history);
+        const scores = game.teams.map((team, index) => team.score + (index === game.currentTeamIdx ? currentScore : 0)).toSorted((team1, team2) => team2 - team1);
+        addToTeamScoreEv({ teamIdx: game.currentTeamIdx, score: currentScore })
         setCurrentTeamEv((game.currentTeamIdx + 1) % game.teams.length)
         // if last team, check wins
         if (game.currentTeamIdx === game.teams.length - 1) {
-            console.log('checking')
-            for (const team of game.teams) {
-                if (team.score >= game.settings.targetScore) {
-                    setStage(Stages.Victory)
-                    return;
-                }
-            }
-            console.log(game.teams[game.currentTeamIdx].score)
-            if (game.teams[game.currentTeamIdx].score >= game.settings.targetScore) {
+            // scores[0] is top
+            // if >= than required and top, victory
+            if ((scores[0] >= game.settings.targetScore) && (scores[0] > scores[1])) {
                 setStage(Stages.Victory)
                 return;
             }
