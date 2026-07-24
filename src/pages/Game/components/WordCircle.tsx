@@ -20,7 +20,6 @@ export const WordCircle = ({ word, wordPlayedHandler }: {
 
     const handleStop = () => {
         setPosition({ x: 0, y: 0 });
-
     }
 
 

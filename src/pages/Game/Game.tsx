@@ -84,7 +84,7 @@ export const Game = () => {
 
     switch (stage) {
         case Stages.StatsBefore:
-            return <div className={clsx(styles.game_container, styles.padding_bottom)}>
+            return <div className={clsx(styles.game_container, styles.padding_bottom)} key={Stages.StatsBefore}>
                 <div className={styles.top}>
                     <div className={styles.teams_header}>
                         <span>Рейтинг команд </span>
@@ -110,8 +110,8 @@ export const Game = () => {
             return <MainGame roundEndHandler={roundEndHandler} letter={game.settings.fixedLetter || game.currentLetter} />
         case Stages.RoundStats:
             return (
-                <div className={clsx(styles.game_container, styles.padding_bottom)}>
-                    <div className={styles.top}>Результат {game.teams[game.currentTeamIdx].name}: {computeScore(history)}</div>
+                <div className={clsx(styles.game_container, styles.padding_bottom)} key={Stages.RoundStats}>
+                    <div className={styles.top}>Результат {game.teams[game.currentTeamIdx].name.trim()}: {computeScore(history)}</div>
                     <div className={clsx(styles.centered_column, styles.results)}>
                         {history.map((record, idx) => 
                         <div key={record.word} className={styles.result}>
@@ -123,7 +123,7 @@ export const Game = () => {
                 </div>
             )
         case Stages.Victory:
-            return <div className={styles.container}>
+            return <div className={styles.container} key={Stages.Victory}>
                 <h2>Победа!</h2>
                 <div className={clsx(styles.centered_column, styles.final_results)}>
                     {
