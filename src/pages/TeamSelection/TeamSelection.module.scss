@@ -12,6 +12,8 @@
     align-items: center;
     gap: 20px;
     margin-bottom: 40px;
+    overflow: auto;
+    max-height: 300px;
 }
 
 .team {

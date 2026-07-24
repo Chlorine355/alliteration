@@ -1,9 +1,16 @@
-* {
-    font-family: system-ui, Arial, Helvetica, sans-serif;
-    --blue: #c6e9ff;
-    --orange: #ffc458;
-}
-
 body {
     margin: 0;
+    --blue: #c6e9ff;
+    --orange: #ffc458;
+    font-family: system-ui, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+input, select {
+        font-size: 20px;
+
+}
+
+button {
+    font-size: 18px;
 }
